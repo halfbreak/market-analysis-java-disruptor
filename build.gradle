@@ -1,6 +1,7 @@
 buildscript {
     ext.kotlin_version = '1.2.31'
     ext.disruptor_version = '3.4.2'
+    ext.junit_version = '4.12'
 
     repositories {
         mavenCentral()
@@ -10,30 +11,40 @@ buildscript {
     }
 }
 
-//plugins {
-//    id 'java'
-//}
+allprojects {
+    group 'pt.hlbk'
+    version '1.0-SNAPSHOT'
 
-group 'pt.hlbk'
-version '1.0-SNAPSHOT'
+    repositories {
+        mavenCentral()
+    }
 
-apply plugin: 'kotlin'
+    apply plugin: 'kotlin'
+    apply plugin: 'java'
 
-sourceCompatibility = 1.8
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
-repositories {
-    mavenCentral()
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+    }
 }
+
+ext.libraries = [
+    kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+    junit: "junit:junit:$junit_version",
+    disruptor: "com.lmax:disruptor:$disruptor_version"
+]
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    compile "com.lmax:disruptor:$disruptor_version"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
+    compile project(':models')
+    compile project(":timesource")
+    compile project(":indicators")
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+    compile libraries.kotlin
+    compile libraries.disruptor
+    testCompile libraries.junit
 }

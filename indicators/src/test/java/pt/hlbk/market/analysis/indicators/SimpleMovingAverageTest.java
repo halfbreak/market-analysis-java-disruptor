@@ -18,7 +18,7 @@ public class SimpleMovingAverageTest {
         Assert.assertEquals(0, sma.getValue(), 0);
 
         sma.onEvent(create(1), 1, false);
-        Assert.assertEquals(6.5, sma.getValue(), 0);
+        Assert.assertEquals(3.0, sma.getValue(), 0);
     }
 
     private static Bar create(double closeValue) {
