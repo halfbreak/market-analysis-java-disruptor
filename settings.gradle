@@ -1,0 +1,5 @@
+rootProject.name = 'market-analysis'
+include 'timesource'
+include 'models'
+include 'indicators'
+
