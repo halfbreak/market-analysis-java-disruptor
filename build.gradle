@@ -13,7 +13,7 @@ buildscript {
 
 allprojects {
     group 'pt.hlbk'
-    version '1.0-SNAPSHOT'
+    version '0.1.0-SNAPSHOT'
 
     repositories {
         mavenCentral()
@@ -36,7 +36,8 @@ allprojects {
 ext.libraries = [
     kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
     junit: "junit:junit:$junit_version",
-    disruptor: "com.lmax:disruptor:$disruptor_version"
+    disruptor: "com.lmax:disruptor:$disruptor_version",
+    guava: "com.google.guava:guava:25.1-jre"
 ]
 
 dependencies {
@@ -44,6 +45,7 @@ dependencies {
     compile project(":timesource")
     compile project(":indicators")
 
+    compile libraries.guava
     compile libraries.kotlin
     compile libraries.disruptor
     testCompile libraries.junit
