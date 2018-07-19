@@ -25,19 +25,31 @@ public class ExponentialMovingAverage implements EventHandler<Bar> {
     public void onEvent(Bar event, long sequence, boolean endOfBatch) {
         queue.add(event.getClose());
         if (queue.size() >= TIME_PERIOD) {
-            if (sma.get() == null) {
-                queue.stream().mapToDouble(value -> value).average().ifPresent(sma::set);
+            if (sma.compareAndSet(null, calculateSMA())) {
                 System.out.println("SMA of " + queue.toString() + " : " + sma.get());
             }
+            
+            double newVal = ema.updateAndGet(val -> {
+                Double previousEma = val;
+                if (previousEma == null) {
+                    previousEma = sma.get();
+                }
+                return calculateEMA(event.getClose(), previousEma);
+            });
 
-            Double previousEma = ema.get();
-            if (previousEma == null) {
-                previousEma = sma.get();
-            }
-            ema.set((event.getClose() - previousEma) * MULTIPLIER + previousEma);
-
-            System.out.println("EMA of " + queue.toString() + " : " + ema.get());
+            System.out.println("EMA of " + queue.toString() + " : " + newVal);
         }
+    }
+
+    private double calculateEMA(double close, Double previousEma) {
+        return (close - previousEma) * MULTIPLIER + previousEma;
+    }
+
+    private double calculateSMA() {
+        return queue.stream()
+                .mapToDouble(value -> value)
+                .average()
+                .getAsDouble();
     }
 
     public double getValue() {
