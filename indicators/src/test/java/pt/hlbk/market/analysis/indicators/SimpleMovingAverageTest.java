@@ -12,7 +12,7 @@ public class SimpleMovingAverageTest {
 
     @Test
     public void shouldCalculateSMA() {
-        final EvictingQueue<Double> q = EvictingQueue.create(10);
+        final EvictingQueue<Double> q = EvictingQueue.create(5);
         final Queue<Double> queue = Queues.synchronizedQueue(q);
         final SimpleMovingAverage sma = new SimpleMovingAverage(queue);
         sma.onEvent(create(1), 1, false);
@@ -25,7 +25,7 @@ public class SimpleMovingAverageTest {
         Assert.assertEquals(3.0, sma.getValue(), 0);
 
         sma.onEvent(create(6), 1, false);
-        Assert.assertEquals(3.5, sma.getValue(), 0);
+        Assert.assertEquals(4.0, sma.getValue(), 0);
     }
 
     private static Bar create(double closeValue) {
