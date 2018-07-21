@@ -29,18 +29,18 @@ public class ExponentialMovingAverage implements EventHandler<Bar> {
                 if (sma.compareAndSet(null, calculateSMA())) {
                     System.out.println("SMA of " + queue.toString() + " : " + sma.get());
                 }
-                double newVal = calcEMA(event);
+                double newVal = update(event);
                 System.out.println("EMA of " + queue.toString() + " : " + newVal);
 
                 queue = null;
             }
         } else {
-            double newVal = calcEMA(event);
+            double newVal = update(event);
             System.out.println("Current EMA is : " + newVal);
         }
     }
 
-    private Double calcEMA(Bar event) {
+    private Double update(Bar event) {
         return ema.updateAndGet(val -> {
             Double previousEma = val;
             if (previousEma == null) {
