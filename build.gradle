@@ -2,6 +2,7 @@ buildscript {
     ext.kotlin_version = '1.2.31'
     ext.disruptor_version = '3.4.2'
     ext.junit_version = '4.12'
+    ext.common_collections_version = '4.1'
 
     repositories {
         mavenCentral()
@@ -34,10 +35,11 @@ allprojects {
 }
 
 ext.libraries = [
-    kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
-    junit: "junit:junit:$junit_version",
-    disruptor: "com.lmax:disruptor:$disruptor_version",
-    guava: "com.google.guava:guava:25.1-jre"
+        kotlin            : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+        junit             : "junit:junit:$junit_version",
+        disruptor         : "com.lmax:disruptor:$disruptor_version",
+        common_collections: "org.apache.commons:commons-collections4:$common_collections_version"
+
 ]
 
 dependencies {
@@ -45,8 +47,8 @@ dependencies {
     compile project(":timesource")
     compile project(":indicators")
 
-    compile libraries.guava
     compile libraries.kotlin
     compile libraries.disruptor
+    compile libraries.common_collections
     testCompile libraries.junit
 }

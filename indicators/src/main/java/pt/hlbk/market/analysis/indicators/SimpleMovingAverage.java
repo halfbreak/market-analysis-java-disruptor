@@ -1,18 +1,18 @@
 package pt.hlbk.market.analysis.indicators;
 
 import com.lmax.disruptor.EventHandler;
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 import pt.hlbk.market.analysis.models.Bar.Bar;
 
-import java.util.Queue;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SimpleMovingAverage implements EventHandler<Bar> {
 
-    private final Queue<Double> queue;
+    private final CircularFifoQueue<Double> queue;
     private final AtomicReference<Double> sma;
 
-    public SimpleMovingAverage(final Queue<Double> queue) {
-        this.queue = queue;
+    public SimpleMovingAverage() {
+        this.queue = new CircularFifoQueue<>(5);
         sma = new AtomicReference<>(0d);
     }
 

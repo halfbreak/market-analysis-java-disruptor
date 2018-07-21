@@ -1,20 +1,14 @@
 package pt.hlbk.market.analysis.indicators;
 
-import com.google.common.collect.EvictingQueue;
-import com.google.common.collect.Queues;
 import org.junit.Assert;
 import org.junit.Test;
 import pt.hlbk.market.analysis.models.Bar.Bar;
-
-import java.util.Queue;
 
 public class SimpleMovingAverageTest {
 
     @Test
     public void shouldCalculateSMA() {
-        final EvictingQueue<Double> q = EvictingQueue.create(5);
-        final Queue<Double> queue = Queues.synchronizedQueue(q);
-        final SimpleMovingAverage sma = new SimpleMovingAverage(queue);
+        final SimpleMovingAverage sma = new SimpleMovingAverage();
         sma.onEvent(create(1), 1, false);
         sma.onEvent(create(2), 1, false);
         sma.onEvent(create(3), 1, false);

@@ -1,20 +1,14 @@
 package pt.hlbk.market.analysis.indicators;
 
-import com.google.common.collect.EvictingQueue;
-import com.google.common.collect.Queues;
 import org.junit.Assert;
 import org.junit.Test;
 import pt.hlbk.market.analysis.models.Bar.Bar;
-
-import java.util.Queue;
 
 public class ExponentialMovingAverageTest {
 
     @Test
     public void shouldCalculateEMA() {
-        final EvictingQueue<Double> q = EvictingQueue.create(10);
-        final Queue<Double> queue = Queues.synchronizedQueue(q);
-        final ExponentialMovingAverage ema = new ExponentialMovingAverage(queue);
+        final ExponentialMovingAverage ema = new ExponentialMovingAverage();
         ema.onEvent(create(1), 1, false);
         ema.onEvent(create(2), 1, false);
         ema.onEvent(create(3), 1, false);
