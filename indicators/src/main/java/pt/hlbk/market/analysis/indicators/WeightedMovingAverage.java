@@ -1,10 +1,9 @@
 package pt.hlbk.market.analysis.indicators;
 
-import com.lmax.disruptor.EventHandler;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import pt.hlbk.market.analysis.models.Bar.Bar;
 
-public class WeightedMovingAverage implements EventHandler<Bar> {
+public class WeightedMovingAverage implements Indicator {
 
     private final CircularFifoQueue<Double> queue;
     private Double wma;
@@ -31,6 +30,7 @@ public class WeightedMovingAverage implements EventHandler<Bar> {
         System.out.println("The WMA of " + queue + " is: " + newWma);
     }
 
+    @Override
     public double getValue() {
         return wma;
     }

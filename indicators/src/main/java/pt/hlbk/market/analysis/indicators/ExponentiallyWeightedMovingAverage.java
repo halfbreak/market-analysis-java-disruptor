@@ -1,10 +1,9 @@
 package pt.hlbk.market.analysis.indicators;
 
-import com.lmax.disruptor.EventHandler;
 import org.jetbrains.annotations.NotNull;
 import pt.hlbk.market.analysis.models.Bar.Bar;
 
-public class ExponentiallyWeightedMovingAverage implements EventHandler<Bar> {
+public class ExponentiallyWeightedMovingAverage implements Indicator {
 
     private Double ewma;
     private final double ratio;
@@ -35,6 +34,7 @@ public class ExponentiallyWeightedMovingAverage implements EventHandler<Bar> {
         return ratio * event.getClose() + (1 - ratio) * previousEwma;
     }
 
+    @Override
     public double getValue() {
         return ewma == null ? 0d : ewma;
     }

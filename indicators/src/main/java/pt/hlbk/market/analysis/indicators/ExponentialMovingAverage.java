@@ -1,10 +1,9 @@
 package pt.hlbk.market.analysis.indicators;
 
-import com.lmax.disruptor.EventHandler;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import pt.hlbk.market.analysis.models.Bar.Bar;
 
-public class ExponentialMovingAverage implements EventHandler<Bar> {
+public class ExponentialMovingAverage implements Indicator {
 
     private static final int TIME_PERIOD = 10;
     private static final double MULTIPLIER = (2. / (TIME_PERIOD + 1));
@@ -59,6 +58,7 @@ public class ExponentialMovingAverage implements EventHandler<Bar> {
                 .getAsDouble();
     }
 
+    @Override
     public double getValue() {
         return ema == null ? 0d : ema;
     }

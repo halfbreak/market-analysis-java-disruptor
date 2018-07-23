@@ -9,16 +9,16 @@ public class CumulativeMovingAverageTest {
     @Test
     public void shouldCalcCMA() {
         CumulativeMovingAverage cma = new CumulativeMovingAverage();
-        Assert.assertEquals(0, cma.getVal(), 0);
+        Assert.assertEquals(0, cma.getValue(), 0);
 
         cma.onEvent(create(1), 1, false);
-        Assert.assertEquals(1, cma.getVal(), 0);
+        Assert.assertEquals(1, cma.getValue(), 0);
 
         cma.onEvent(create(3), 1, false);
-        Assert.assertEquals(2, cma.getVal(), 0);
+        Assert.assertEquals(2, cma.getValue(), 0);
 
         cma.onEvent(create(5), 1, false);
-        Assert.assertEquals(3, cma.getVal(), 0);
+        Assert.assertEquals(3, cma.getValue(), 0);
     }
 
     private static Bar create(double closeValue) {

@@ -1,10 +1,9 @@
 package pt.hlbk.market.analysis.indicators;
 
-import com.lmax.disruptor.EventHandler;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import pt.hlbk.market.analysis.models.Bar.Bar;
 
-public class SimpleMovingAverage implements EventHandler<Bar> {
+public class SimpleMovingAverage implements Indicator {
 
     private final CircularFifoQueue<Double> queue;
     private double sma;
@@ -23,6 +22,7 @@ public class SimpleMovingAverage implements EventHandler<Bar> {
         }
     }
 
+    @Override
     public double getValue() {
         return sma;
     }

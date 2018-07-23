@@ -1,23 +1,20 @@
 package pt.hlbk.market.analysis.indicators;
 
-import com.lmax.disruptor.EventHandler;
 import pt.hlbk.market.analysis.models.Bar.Bar;
 
-import java.util.concurrent.atomic.AtomicLong;
-
-public class CumulativeMovingAverage implements EventHandler<Bar> {
+public class CumulativeMovingAverage implements Indicator {
 
     private double cma;
-    private final AtomicLong number;
+    private long number;
 
     public CumulativeMovingAverage() {
         cma = 0d;
-        number = new AtomicLong(0);
+        number = 0;
     }
 
     @Override
     public void onEvent(Bar event, long sequence, boolean endOfBatch) {
-        cma = calcNewVal(event.getClose(), number.getAndIncrement(), cma);
+        cma = calcNewVal(event.getClose(), number++, cma);
         System.out.println("Current value of CMA is: " + cma);
     }
 
@@ -25,7 +22,8 @@ public class CumulativeMovingAverage implements EventHandler<Bar> {
         return (close + numberOfEntries * currentCMA) / (numberOfEntries + 1);
     }
 
-    public double getVal() {
+    @Override
+    public double getValue() {
         return cma;
     }
 }
