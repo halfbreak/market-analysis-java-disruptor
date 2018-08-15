@@ -1,3 +1,5 @@
+import org.ajoberstar.gradle.git.release.opinion.Strategies
+
 buildscript {
     ext.kotlin_version = '1.2.51'
     ext.disruptor_version = '3.4.2'
@@ -17,7 +19,7 @@ buildscript {
 
 allprojects {
     group 'pt.hlbk'
-    version '0.1.0-SNAPSHOT'
+//    version '0.3.0-SNAPSHOT'
 
     repositories {
         mavenCentral()
@@ -57,4 +59,8 @@ dependencies {
     compile libraries.disruptor
     compile libraries.common_collections
     testCompile libraries.junit
+}
+
+release {
+    defaultVersionStrategy = Strategies.SNAPSHOT
 }
